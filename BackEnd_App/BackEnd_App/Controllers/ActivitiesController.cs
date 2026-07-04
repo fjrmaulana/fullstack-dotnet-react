@@ -17,8 +17,16 @@ namespace BackEnd_App.Controllers
         }
 
         [HttpGet]
-        public async System.Threading.Tasks.Task<ActionResult<List<BackEnd_App.Models.Activity>>> GetActivity(){
-           return await context.Activities.ToListAsync();
+        public async System.Threading.Tasks.Task<ActionResult<List<BackEnd_App.Models.Activity>>> GetActivity() {
+            return await context.Activities.ToListAsync();
+        }
+
+        [HttpGet("{id}")]
+        public async System.Threading.Tasks.Task<ActionResult<BackEnd_App.Models.Activity>> GetActivityDetail(string id)
+        {
+            var activity = await context.Activities.FindAsync(id);
+            if (activity == null) return NotFound();
+            return activity;
         }
     }
 }
